@@ -1,6 +1,8 @@
 # Plant Escape Game
 Can you escape the building before it's too late?
+
 An original text-based escape room game developed by Lynn Chiu 
+
 For a Python boot camp project with Ben 
 
 ## Instructions
