@@ -26,7 +26,6 @@ class Player( object ):
         if action in c.flashlight_on_actions:
             if self.flashlight == "on":
                 print("\nThe flashlight is already", self.flashlight)
-
             elif self.flashlight == "off":
                 self.flashlight = "on"
                 print(m.turn_on_flashlight_text)
@@ -42,8 +41,7 @@ class Player( object ):
             error(1)
 
     def use_paper( self, action ):
-        paper = open("plantgame_paper.txt", 'r').read().rstrip()
-        print(f"\n\n{paper}\n\n")
+        print(m.note_room_paper)
 
     def add_to_inventory( self, item ):
         if item not in self.inventory:
