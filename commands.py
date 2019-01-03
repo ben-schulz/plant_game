@@ -1,4 +1,4 @@
-"""captures possible user inputs"""
+#captures possible user inputs
 
 #>----doors and windows
 door_actions = { #N, E, S, W
