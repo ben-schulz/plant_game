@@ -1,6 +1,14 @@
 from textwrap import dedent
 
-welcome_text = open("plantgame_welcome.txt", 'r')
+welcome_text = dedent("""
+    You wake up in a room with a large window.
+    Outside, you see a lush forest all the way to the horizon.
+    It's beautiful and calm out there.
+
+    But back in the room...slimey, thick dark vines cover the walls and floors.
+    Astonished, you see that they're growing at a rapid speed!
+    Slithering across the wall. Like snakes.
+    The roots ripple as they cover the floor.""")
 
 #>----room_attr.py
 
@@ -42,6 +50,16 @@ There is a piece of paper on the floor.
 
 note_room_inventory_taken = "An entanglement of roots crawl over the floor."
 
+note_room_paper = dedent("""
+You flip the piece of paper around.
+Scrawled in bad handwriting:
+
+    /tGET OUT NOW!!!
+    /tThe experiment... the GMO symbionts are driving the growth.
+    /tThe plants are now everywhere.
+    /tThey're growing fast, sealing off doors, covering the building...
+    /tRun! Get out of the building before it's too late!""")
+
 no_paper = "There is no paper here."
 
 flashlight_inventory_message = dedent(
@@ -60,7 +78,7 @@ heat_room_help = dedent(
 You turned the dial.
 Heat blasts through the building.
 The plants love it!
-New branches shoot across the wall."""
+"""
 )
 
 heat_room_harm = dedent(
@@ -114,9 +132,40 @@ flashlight_text = "You scan the room with your flashlight."
 
 filler_text = "\nDangling plant roots brush by your face, as if wishing you death."
 
+not_understand = dedent(
+"""
+I don't understand. Please type again.
+"""
+)
+
 #>----player.py messages
 turn_on_flashlight_text = dedent("""
 You turn on the flashlight.
 You can see the room now.
 The plants are not affected by the light.
+""")
+
+
+#>---ending.py messages
+plants_win = dedent(
+"""
+Game over.
+The plants have overgrown the building.
+You are stuck in here forever.
+""")
+
+exit_text = dedent(
+"""
+Game over, you win!
+You got out before the plants overwhelmed the room!
+"""
+)
+
+death_text = dedent(
+"""
+You fall into a pit full of worms.
+As you flail about.
+You slowly suffucate.
+
+Game over.
 """)

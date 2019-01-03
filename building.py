@@ -1,8 +1,7 @@
 from textwrap import dedent
-import plant as p
-import commands as c
+
 import room_attr as r
-import player
+import commands as c
 import messages as m
 
 class Room( object ):
@@ -17,65 +16,53 @@ class Room( object ):
     def get_next_room( self, action ):
         for direction, action_terms in c.door_actions.items():
             if action in action_terms:
-                next_room = self.doors.get(direction, None)
-        if next_room == None:
-            print(m.no_door)
-            next_room = self.name
-        else:
-            p.plant.grow_and_report()
-        return next_room
+                return self.doors.get(direction, None)
 
-    def window_actions( self, action ):
-        def close_window():
-            self.window = "closed"
-            print(m.close_window)
+    def close_window( self ):
+        self.window = "closed"
+        print(m.close_window)
 
-        def open_window():
-            self.window = "open"
-            print(m.open_window)
+    def open_window( self ):
+        self.window = "open"
+        print(m.open_window)
 
-        if self.window == "open":
-            if action in c.window_close_actions:
-                close_window()
-                p.plant.decrease_growth_rate_and_report()
-            else:
-                print("The shutters are already open.")
+    def already_closed( self ):
+        print("The shutters are already closed.")
 
-        elif self.window == "closed":
-            if action in c.window_on_actions:
-                open_window()
-                p.plant.increase_growth_rate_and_report()
-            else:
-                print("The shutters are already closed.")
-        else:
-            error(1)
+    def already_open( self ):
+        print("The shutters are already open.")
 
     def room_feature( self ):
         if self.feature:
             print(self.harm_plant_message)
-            p.plant.wither_and_report()
             self.feature = False
             self.message = self.harm_plant_room_message
+            return "wither"
 
-        elif self.feature == False:
+        if self.feature == False:
             print(self.help_plant_message)
-            p.plant.grow_and_report()
             self.feature = True
             self.message = self.help_plant_room_message
-        else:
-            error(1)
+            return "grow"
 
     def room_inventory_feature( self ):
         if self.inventory_feature:
             print(self.inventory_message)
-            player.player.add_to_inventory( self.inventory_item )
             self.message = self.inventory_taken_message
             self.inventory_feature = False
+            return "taken"
 
         elif self.inventory_feature == False:
             print(self.no_item_message)
-        else:
-            error(1)
+            return "nothing"
+
+def check_room( room ):
+    if room == "death":
+        return True
+    elif room == "exit":
+        return True
+    else:
+        return False
 
 rooms = {
     "note_room": Room( r.note_room_attr ),

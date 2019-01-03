@@ -1,5 +1,6 @@
 from textwrap import dedent
 from sys import exit
+
 import plant as p
 import building as b
 import commands as c
@@ -11,21 +12,40 @@ def bright_room_decisions( room, action ):
 
     #door actions
     if action in [x for v in c.door_actions.values() for x in v]:
-        return room.get_next_room( action )
+        next_room = room.get_next_room( action )
+        if next_room == None:
+            print(m.no_door)
+            next_room = room.name
+        else:
+            p.plant.grow_and_report()
+        return next_room
 
     #window actions
-    elif action in c.window_actions:
-        room.window_actions( action )
+    elif action in c.window_on_actions:
+        room.already_open()
+        return room.name
+
+    elif action in c.window_close_actions:
+        room.close_window()
+        p.plant.decrease_growth_rate_and_report()
         return room.name
 
     #act on special room features
     elif action in room.action:
-        room.room_feature()
-        return room.name
+        plant = room.room_feature()
+        if plant == "wither":
+            p.plant.wither_and_report()
+            return room.name
+        elif plant == "grow":
+            p.plant.grow_and_report()
+            return room.name
 
     #add room item to inventory
     elif action in room.inventory_action:
-        room.room_inventory_feature()
+        if room.room_inventory_feature() == "taken":
+            player.player.add_to_inventory( room.inventory_item )
+        else:
+            pass
         return room.name
 
     #use inventory
@@ -39,19 +59,19 @@ def bright_room_decisions( room, action ):
         return room.name
 
     else:
-        print(dedent(
-        """
-        I don't understand. Please type again.
-        """
-        ))
+        print(m.not_understand)
         return room.name
 
 def dark_room_decisions( room, action ):
-    """when the room is dark, these are the available decisions:"""
 
-    #open window shutters
-    if action in c.window_actions:
-        room.window_actions( action )
+    #window actions
+    if action in c.window_on_actions:
+        room.open_window()
+        p.plant.increase_growth_rate_and_report()
+        return room.name
+
+    elif action in c.window_close_actions:
+        room.already_closed()
         return room.name
 
     #use flashlight
@@ -82,6 +102,7 @@ def room_decisions( room ):
             return dark_room_decisions( room, action )
 
         while light == "yes":
+            #display light conditions
             if room.window == "open":
                 print(m.light_text)
             if player.player.flashlight == "on":
@@ -98,4 +119,4 @@ def room_decisions( room ):
         print("You quit the game. Goodbye!")
         exit(1)
     else:
-        print("you shouldn't be here")
+        error(1)

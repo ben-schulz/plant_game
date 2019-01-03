@@ -1,7 +1,6 @@
-import commands as c
-import building as b
-import plant as p
 from textwrap import dedent
+
+import commands as c
 import messages as m
 
 class Player( object ):
