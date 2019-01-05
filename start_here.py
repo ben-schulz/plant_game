@@ -4,6 +4,12 @@ import player as player
 import play as play
 import room_attr as r
 
+#This is a Plant Game!
+#author: Lynn Chiu
+#Last update: 2019/1/5
+
+#A text-based escape room game
+
 #generate room objects from room_attr file and building module
 map = r.Map()
 rooms_dict = {}
