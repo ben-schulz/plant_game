@@ -107,109 +107,111 @@ You feel a gentle breeze.
 """)
 
 #>-- main file
-room_attr_dict = {
 
-    "symbiont_room_attr" : {
-        "name": "symbiont_room",
-        "window": "closed",
-        "doors": {"east": "water_room", "west": "death",},
-        "action": "None",
-        "inventory_action": "None",
+class Map( object ):
+    room_attr_dict = {
 
-        "message": symbiont_room_message,
-    },
+        "symbiont_room_attr" : {
+            "name": "symbiont_room",
+            "window": "closed",
+            "doors": {"east": "water_room", "west": "death",},
+            "action": "None",
+            "inventory_action": "None",
 
-    "water_room_attr" : {
-        "name": "water_room",
-        "window": "closed",
-        "doors": {"south": "west_note_room", "west": "symbiont_room", "north": "room_with_exit"},
-        "inventory_action": "None",
-    #room feature
-        "action": faucet_actions,
+            "message": symbiont_room_message,
+        },
 
-        "feature": "on",
-        "harm_plant_message": water_room_harm_plant,
-        "help_plant_message": water_room_help_plant,
-        "harm_plant_room_message": water_room_harm_plant_room,
-        "help_plant_room_message": water_room_help_plant_room,
+        "water_room_attr" : {
+            "name": "water_room",
+            "window": "closed",
+            "doors": {"south": "west_note_room", "west": "symbiont_room", "north": "room_with_exit"},
+            "inventory_action": "None",
+        #room feature
+            "action": faucet_actions,
 
-        "message": water_room_message,
-    },
+            "feature": "on",
+            "harm_plant_message": water_room_harm_plant,
+            "help_plant_message": water_room_help_plant,
+            "harm_plant_room_message": water_room_harm_plant_room,
+            "help_plant_room_message": water_room_help_plant_room,
 
-    "west_note_room_attr" : {
-        "name": "west_note_room",
-        "window": "closed",
-        "doors": {"east": "note_room", "north": "water_room"},
-        "action": "None",
-        "inventory_action": "None",
-    },
+            "message": water_room_message,
+        },
 
-    "note_room_attr" : {
-        "name": "note_room",
-        "window": "open",
-        "doors": {"east": "east_note_room", "west": "west_note_room"},
-        "action": "None",
+        "west_note_room_attr" : {
+            "name": "west_note_room",
+            "window": "closed",
+            "doors": {"east": "note_room", "north": "water_room"},
+            "action": "None",
+            "inventory_action": "None",
+        },
 
-    #inventory
-        "inventory_action": paper_actions,
-        "inventory_item": "paper",
-        "inventory_feature": "exist",
-        "inventory_message": note_room_paper,
-        "inventory_taken_message": note_room_inventory_taken,
-        "no_item_message": no_paper,
+        "note_room_attr" : {
+            "name": "note_room",
+            "window": "open",
+            "doors": {"east": "east_note_room", "west": "west_note_room"},
+            "action": "None",
 
-        "message": note_room_message,
-    },
+        #inventory
+            "inventory_action": paper_actions,
+            "inventory_item": "paper",
+            "inventory_feature": "exist",
+            "inventory_message": note_room_paper,
+            "inventory_taken_message": note_room_inventory_taken,
+            "no_item_message": no_paper,
 
-    "east_note_room_attr" : {
-        "name": "east_note_room",
-        "window": "closed",
-        "doors": {"west": "note_room", "north": "heat_room", "south": "flashlight_room"},
-        "action": "None",
-        "inventory_action": "None",
+            "message": note_room_message,
+        },
 
-    },
+        "east_note_room_attr" : {
+            "name": "east_note_room",
+            "window": "closed",
+            "doors": {"west": "note_room", "north": "heat_room", "south": "flashlight_room"},
+            "action": "None",
+            "inventory_action": "None",
 
-    "flashlight_room_attr" : {
-        "name": "flashlight_room",
-        "window": "closed",
-        "doors": {"north": "east_note_room"},
-        "action": "None",
-    #inventory
-        "inventory_item": "flashlight",
-        "inventory_action": flashlight_actions,
-        "inventory_feature": "exist",
-        "inventory_message": flashlight_inventory_message,
-        "inventory_taken_message": flashlight_inventory_taken,
-        "no_item_message": no_flashlight,
+        },
 
-        "message": flash_light_message,
+        "flashlight_room_attr" : {
+            "name": "flashlight_room",
+            "window": "closed",
+            "doors": {"north": "east_note_room"},
+            "action": "None",
+        #inventory
+            "inventory_item": "flashlight",
+            "inventory_action": flashlight_actions,
+            "inventory_feature": "exist",
+            "inventory_message": flashlight_inventory_message,
+            "inventory_taken_message": flashlight_inventory_taken,
+            "no_item_message": no_flashlight,
 
-    },
+            "message": flash_light_message,
 
-    "heat_room_attr" : {
-        "name": "heat_room",
-        "window": "closed",
-        "doors": {"south": "east_note_room",},
-        "inventory_action": "None",
-    #room feature
-        "action": dial_actions,
-        "feature": "off",
-        "help_plant_message": heat_room_help,
-        "harm_plant_message": heat_room_harm,
-        "harm_plant_room_message": heat_room_harm_room,
-        "help_plant_room_message": heat_room_help_room,
+        },
 
-        "message": heat_room_message,
-    },
+        "heat_room_attr" : {
+            "name": "heat_room",
+            "window": "closed",
+            "doors": {"south": "east_note_room",},
+            "inventory_action": "None",
+        #room feature
+            "action": dial_actions,
+            "feature": "off",
+            "help_plant_message": heat_room_help,
+            "harm_plant_message": heat_room_harm,
+            "harm_plant_room_message": heat_room_harm_room,
+            "help_plant_room_message": heat_room_help_room,
 
-    "room_with_exit_attr" : {
-        "name": "room_with_exit",
-        "window": "closed",
-        "doors": {"north": "exit", "south": "water_room",},
-        "action": "None",
-        "inventory_action": "None",
+            "message": heat_room_message,
+        },
 
-        "message": room_with_exit_message,
-    },
-}
+        "room_with_exit_attr" : {
+            "name": "room_with_exit",
+            "window": "closed",
+            "doors": {"north": "exit", "south": "water_room",},
+            "action": "None",
+            "inventory_action": "None",
+
+            "message": room_with_exit_message,
+        },
+    }
