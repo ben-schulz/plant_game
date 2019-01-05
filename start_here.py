@@ -1,47 +1,22 @@
-from sys import exit
-from textwrap import dedent
-
-import actions as a
 import building as b
 import plant as p
-import messages as m
+import player as player
+import play as play
+import room_attr as r
 
+#generate plant
+plant = p.Plant()
 
-def game_over( next_room, plants_win ):
-    if plants_win:
-        print(m.plants_win)
-    if next_room == "exit":
-        print(m.exit_text)
-    if next_room == "death":
-        print(m.death_text)
+#generate player
+player = player.Player()
 
-class Play():
+#generate rooms from room_attr file and building module
+rooms_dict = {}
+for key, values in r.room_attr_dict.items():
+    room_name = values["name"]
+    room_attr = key
+    rooms_dict.update({room_name: b.Room(r.room_attr_dict[room_attr])})
 
-    def __init__( self ):
-        pass
-
-    def enter( self, next_room ):
-        flag = False
-
-        while flag == False:
-            current_room = b.rooms[ next_room ]
-            next_room = a.room_decisions( current_room )
-
-            #check whether game over
-            plants_win = p.plant.check_over_growth()
-            end_room = b.check_room( next_room )
-            if end_room or plants_win :
-                flag = True
-            else:
-                flag = False
-
-        game_over( next_room, plants_win )
-
-    def start( self, starting_room ):
-        print(m.welcome_text)
-        current_room = b.rooms[starting_room]
-        next_room = a.room_decisions( current_room )
-        self.enter( next_room )
-
-game = Play()
+#generate game
+game = play.Play(plant, player, rooms_dict)
 game.start('note_room')

@@ -53,5 +53,3 @@ class Plant ( object ):
             return True
         else:
             return False
-
-plant = Plant()
