@@ -1,7 +1,7 @@
 import building as b
 import plant as p
-import player as player
-import play as play
+import player
+import play
 import room_attr as r
 
 #This is a Plant Game!
